@@ -1,8 +1,17 @@
+.marker {
+  cursor: pointer;
+  border: 1px solid white;
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  z-index: 10px;
+}
 
 .info {
   position: relative;
-  bottom: 115px;
-  height: 105px;
+  bottom: 135px;
+  height: 125px;
+  overflow: hidden;
   left: -160px; // half width
   width: 320px;
   background-color: white;
@@ -12,8 +21,12 @@
   z-index: 10000;
 }
 .inner {
+  box-sizing: border-box;
   padding: 12px;
   position: relative;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 100%;
 }
 
 .name {

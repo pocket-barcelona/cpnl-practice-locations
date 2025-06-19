@@ -1,6 +1,6 @@
 import GoogleMapReact from "google-map-react";
 import { useMemo, useState } from "react";
-import { generateMarkers, markers } from "../../utils/fakeData";
+import { generateMarkers, markers } from "../../utils/data";
 import Marker from "../Marker/Marker";
 
 export default function Map() {
@@ -31,6 +31,7 @@ export default function Map() {
         defaultZoom={defaultProps.zoom}
         options={{
           clickableIcons: false,
+          fullscreenControl: false,
           styles: [
             {
               featureType: "poi",
@@ -39,6 +40,7 @@ export default function Map() {
             },
           ],
         }}
+        onClick={hidePlace}
       >
         {markers.map((marker) => (
           <Marker

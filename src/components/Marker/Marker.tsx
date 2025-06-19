@@ -1,5 +1,3 @@
-"use client";
-
 import type { Place } from "../../types/types";
 import styles from "./Marker.module.scss";
 
@@ -12,18 +10,10 @@ type MarkerProps = {
   onHide: () => void;
 };
 export default function Marker({ show, place, onClick, onHide }: MarkerProps) {
-  const markerStyle = {
-    border: "1px solid white",
-    borderRadius: "50%",
-    height: 10,
-    width: 10,
-    backgroundColor: show ? "red" : "blue",
-    cursor: "pointer",
-    zIndex: 10,
-  };
-
   return (
-    <div style={markerStyle} onClick={() => onClick(place.id)}>
+    <div className={styles.marker} style={{
+      backgroundColor: show ? "#f90000" : "#0000f9"
+    }} onClick={() => onClick(place.id)}>
       {show && <InfoWindow place={place} onHide={onHide} />}
     </div>
   );
@@ -52,7 +42,7 @@ function InfoWindow({
         <div className={styles.address}>
           🏠 {address} ({barrio})
         </div>
-        {notes && <div className={styles.notes}>📝 {notes}</div>}
+        {notes && <div className={styles.notes}>📍 {notes}</div>}
         {/* <div style={{ fontSize: 14, color: "grey" }}>
           {"$".repeat(price_level)}
         </div> */}
