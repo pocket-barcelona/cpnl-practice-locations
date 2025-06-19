@@ -1,0 +1,67 @@
+---
+import './src/styles/global.css'
+// import { SEO, type Props as SEOProps } from "astro-seo";
+// import Footer from "../components/footer.astro";
+// import Navbar from "../components/navbar.astro";
+// import "@fontsource-variable/inter/index.css";
+export interface Props {
+	title: string;
+  // seo?: SEOProps;
+}
+
+// const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+
+// const resolvedImageWithDomain = new URL(
+// 	"/og.jpg",
+// 	Astro.site,
+// ).toString();
+
+const { title } = Astro.props;
+
+const makeTitle = title
+	? `${title} | Map Stuff`
+	: "Put stuff on a map";
+---
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <!-- <SEO
+      {...seo}
+      title={makeTitle}
+      description="Website - foobar!"
+      canonical={canonicalURL}
+      openGraph={{
+        basic: {
+          url: canonicalURL,
+          type: "website",
+          title: `Website - foobar`,
+          image: resolvedImageWithDomain,
+          ...seo?.openGraph?.basic ?? {},
+        },
+        image: {
+          ...seo?.openGraph?.image ?? {},
+          alt: "Foobar",
+        },
+      }}
+    /> -->
+  </head>
+
+  <body class="pt-[60px] lg:pt-[72px]">
+    <!-- <Navbar /> -->
+    <main id="main">
+      <slot />
+    </main>
+    <!-- <Footer /> -->
+    <style is:global>
+      /* Improve Page speed */
+      /* https://css-tricks.com/almanac/properties/c/content-visibility/ */
+      img {
+        content-visibility: auto;
+      }
+    </style>
+  </body>
+</html>
