@@ -1,14 +1,17 @@
-import type { CSSProperties } from "react";
+"use client";
+
 import type { Place } from "../../types/types";
+import styles from "./Marker.module.scss";
 
 type MarkerProps = {
   place: Place;
   lat: number;
   lng: number;
   show?: boolean;
-  onClick: (placeIndex: number) => void;
+  onClick: (placeId: number) => void;
+  onHide: () => void;
 };
-export default function Marker({ show, place, onClick }: MarkerProps) {
+export default function Marker({ show, place, onClick, onHide }: MarkerProps) {
   const markerStyle = {
     border: "1px solid white",
     borderRadius: "50%",
@@ -21,48 +24,58 @@ export default function Marker({ show, place, onClick }: MarkerProps) {
 
   return (
     <div style={markerStyle} onClick={() => onClick(place.id)}>
-      {show && <InfoWindow place={place} />}
+      {show && <InfoWindow place={place} onHide={onHide} />}
     </div>
   );
 }
 
 type InfoWindowProps = {
   place: Place;
+  onHide: () => void;
 };
-function InfoWindow({ place: { id, address, name, notes} }: InfoWindowProps) {
-  const infoWindowStyle: CSSProperties = {
-    position: "relative",
-    bottom: 100,
-    left: "-105px",
-    width: 220,
-    backgroundColor: "white",
-    boxShadow: "0 2px 7px 1px rgba(0, 0, 0, 0.3)",
-    padding: 10,
-    fontSize: 14,
-    zIndex: 100,
-    borderRadius: 8,
-  };
-
+function InfoWindow({
+  place: { address, name, notes, barrio },
+  onHide,
+}: InfoWindowProps) {
   return (
-    <div style={infoWindowStyle}>
-      <div style={{ fontSize: 16 }}>ID: {id}</div>
-      <div style={{ fontSize: 14 }}>
-        <span style={{ color: "grey" }}>{name} </span>
-        {/* <span style={{ color: "orange" }}>
-          {String.fromCharCode(9733).repeat(Math.floor(rating))}
-        </span>
-        <span style={{ color: "lightgrey" }}>
-          {String.fromCharCode(9733).repeat(5 - Math.floor(rating))}
-        </span> */}
+    <div className={styles.info}>
+      <div className={styles.inner}>
+        <div className={styles.name}>
+          <span>{name} </span>
+          {/* <span style={{ color: "orange" }}>
+            {String.fromCharCode(9733).repeat(Math.floor(rating))}
+          </span>
+          <span style={{ color: "lightgrey" }}>
+            {String.fromCharCode(9733).repeat(5 - Math.floor(rating))}
+          </span> */}
+        </div>
+        <div className={styles.address}>
+          🏠 {address} ({barrio})
+        </div>
+        {notes && <div className={styles.notes}>📝 {notes}</div>}
+        {/* <div style={{ fontSize: 14, color: "grey" }}>
+          {"$".repeat(price_level)}
+        </div> */}
+        {/* <div style={{ fontSize: 14, color: "green" }}>
+          {opening_hours.open_now ? "Open" : "Closed"}
+        </div> */}
       </div>
-      <div style={{ fontSize: 14, color: "grey" }}>{address}</div>
-      <div style={{ fontSize: 14, color: "grey" }}>{notes}</div>
-      {/* <div style={{ fontSize: 14, color: "grey" }}>
-        {"$".repeat(price_level)}
-      </div> */}
-      {/* <div style={{ fontSize: 14, color: "green" }}>
-        {opening_hours.open_now ? "Open" : "Closed"}
-      </div> */}
+      <button className={styles.close} onClick={onHide}>
+        <svg
+          width="24px"
+          height="24px"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z"
+            fill="#0F1729"
+          />
+        </svg>
+      </button>
     </div>
   );
 }

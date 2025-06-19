@@ -1,0 +1,49 @@
+
+.info {
+  position: relative;
+  bottom: 115px;
+  height: 105px;
+  left: -160px; // half width
+  width: 320px;
+  background-color: white;
+  box-shadow: 0 2px 7px 1px rgba(0, 0, 0, 0.3);
+  font-size: 0.875rem;
+  border-radius: 8px;
+  z-index: 10000;
+}
+.inner {
+  padding: 12px;
+  position: relative;
+}
+
+.name {
+  color: black;
+  margin-bottom: 16px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.address {
+  margin-bottom: 4px;
+}
+
+.address,
+.notes {
+  color: #333;
+}
+
+.close {
+  cursor: pointer;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  z-index: 10;
+  margin: 0;
+  padding: 0;
+  border-radius: 100%;
+  font-weight: bold;
+  font-size: 1rem;
+}

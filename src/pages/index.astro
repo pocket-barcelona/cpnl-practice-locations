@@ -14,9 +14,9 @@ import MyMap from "../components/Map/Map";
   </head>
   <body>
     <Layout title={"Map Stuff!"}>
-      <Container>
-				<MyMap client:load></MyMap>
-			</Container>
+      <MyMap client:only></MyMap>
+      <!-- <Container>
+			</Container> -->
     </Layout>
   </body>
 </html>

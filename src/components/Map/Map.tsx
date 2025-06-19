@@ -1,6 +1,6 @@
 import GoogleMapReact from "google-map-react";
 import { useMemo, useState } from "react";
-import { generateMarkers } from "../../utils/fakeData";
+import { generateMarkers, markers } from "../../utils/fakeData";
 import Marker from "../Marker/Marker";
 
 export default function Map() {
@@ -9,14 +9,17 @@ export default function Map() {
       lat: 41.3870235,
       lng: 2.1700665,
     },
-    zoom: 11,
+    zoom: 15,
   } as const;
 
   const [currentPlace, setCurrentPlace] = useState(-1);
-  const markers = useMemo(() => generateMarkers(1000, 0.001), []);
-
-  const focusPlace = (index: number) => {
-    setCurrentPlace(index);
+  // const markers = useMemo(() => generateMarkers(1000, 0.001), []);
+  
+  const focusPlace = (id: number) => {
+    setCurrentPlace(id);
+  };
+  const hidePlace = () => {
+    setCurrentPlace(-1);
   };
 
   return (
@@ -26,13 +29,24 @@ export default function Map() {
         bootstrapURLKeys={{ key: "" }} // https://github.com/google-map-react/google-map-react-examples/blob/master/src/components/GoogleMap.js
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
+        options={{
+          clickableIcons: false,
+          styles: [
+            {
+              featureType: "poi",
+              elementType: "labels",
+              stylers: [{ visibility: "off" }],
+            },
+          ],
+        }}
       >
-        {markers.map((marker, index) => (
+        {markers.map((marker) => (
           <Marker
             key={marker.id}
             place={marker}
-            show={currentPlace === index}
-            onClick={(newIndex) => focusPlace(newIndex)}
+            show={currentPlace === marker.id}
+            onClick={(placeId) => focusPlace(placeId)}
+            onHide={() => hidePlace()}
             lat={marker.lat}
             lng={marker.lng}
           />

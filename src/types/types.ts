@@ -4,5 +4,6 @@ export type Place = {
   lng: number;
   name: string;
   address: string;
+  barrio: string;
   notes: string;
 }
