@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/layout.astro";
 import Container from "../components/container.astro";
+import MyMap from "../components/Map/Map";
 ---
 
 <html lang="en">
@@ -9,12 +10,12 @@ import Container from "../components/container.astro";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>Map stuff</title>
   </head>
   <body>
     <Layout title={"Map Stuff!"}>
       <Container>
-				Hello
+				<MyMap client:load></MyMap>
 			</Container>
     </Layout>
   </body>
